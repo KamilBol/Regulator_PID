@@ -1,4 +1,4 @@
-/* PID_GPT_V.1.2 – KamilBol + Grok (17.11.2025)
+/* PID_GPT_V.1.2 – KamilBol (17.11.2025)
    ESP32-S3 DevKitC-1 N16R8
    Pełny regulator PID z OTA, WiFiManager, Nextion, SD, Modbus
    Wszystkie Twoje sekcje zachowane 1:1 – tylko poprawione i uzupełnione
