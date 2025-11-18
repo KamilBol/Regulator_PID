@@ -109,7 +109,7 @@ void readPZEM() {
     if (lastIread_ms != 0) {
       float dt = (now - lastIread_ms) / 1000.0f;
       float slope = (i - I_meas) / max(dt, 0.001f);
-      i neuen_slope = i_slope * 0.8f + slope * 0.2f;
+      i_slope = i_slope * 0.8f + slope * 0.2f;
     }
     I_meas = i;
     lastIread_ms = now;
