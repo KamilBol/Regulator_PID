@@ -1,0 +1,58 @@
+To jest układ zamknięty typu „Pętla Sprzężenia Zwrotnego”.
+
+SCHEMAT BLOKOWY (Jak to krąży)
+Plaintext
+
+       [1. GRANULATOR]  <---(Obciążenie trociną)--  [5. PODAJNIKI]
+             |                                            ^
+      (Pobór prądu: 35A?)                                 |
+             |                                            |
+             v                                            |
+    [2. CZARNE PUDEŁKO]  -------(Decyzja)-------->  [4. FALOWNIK E3]
+    (Strażnik Amperów)                                    ^
+             ^                                            |
+             |                                            |
+    (Zasilanie 24V z Pin 1)                      (Sygnał z Gałki 0-10V)
+             |                                            |
+             ------------------------------------ [3. ZADAJNIK COBI]
+JAK TO PŁYNIE PO KABLACH (Analiza Twojego zdjęcia falownika)
+Oto fizyczna droga sygnału elektrycznego w Twojej szafie:
+
+KROK 1: Źródło sygnału (Serce)
+Z falownika PIN 1 (tam gdzie masz wpięty niebieski mostek i czarny kabel) wychodzi napięcie sterownicze +24V.
+
+Ten czarny kabel (z pomarańczowej kostki) biegnie w szafie do Czarnego Pudełka (Strażnika). Tam czeka na stykach przekaźnika.
+
+KROK 2: Normalna praca (Mózg: Cobi)
+Dopóki Granulator ma lekko (poniżej 35A):
+
+Styk w Czarnym Pudełku jest OTWARTY. Prąd 24V tam stoi i nie płynie dalej.
+
+Falownik E3 patrzy na PIN 6 (Żółty kabel). Tam przychodzi napięcie 0-10V z Twojej gałki na panelu Cobi.
+
+Falownik steruje podajnikami tak, jak ustawiłeś gałką (np. 17.3 Hz).
+
+KROK 3: Przeciążenie (Alarm!)
+Granulator dostaje za dużo trociny. Jego prąd skacze powyżej 35A.
+
+Czarne Pudełko (Strażnik) to wykrywa. Jego wewnętrzny przekaźnik ZAMYKA SIĘ.
+
+Prąd +24V (który czekał na styku) przepływa przez Strażnika i wraca do falownika drugim czarnym kablem.
+
+KROK 4: Reakcja Falownika (Wejście na PIN 4)
+Prąd wracający od Strażnika trafia na PIN 4 falownika (widzę tam czarny przewód).
+
+Procesor falownika widzi napięcie na Pinie 4.
+
+Zgodnie z ustawieniami (P-15=0), procesor mówi: „Odetnij sygnał z gałki (Pin 6)! Włącz prędkość awaryjną z parametru P-20!”.
+
+Falownik zwalnia silniki podajników do np. 10 Hz.
+
+KROK 5: Odblokowanie
+Podajniki zwolniły -> do Granulatora wpada mniej towaru.
+
+Prąd Granulatora spada poniżej 35A.
+
+Czarne Pudełko otwiera styk. Prąd na PIN 4 zanika (robi się 0V).
+
+Falownik wraca do słuchania gałki Cobi (PIN 6) i przyspiesza z powrotem do 17.3 Hz.
