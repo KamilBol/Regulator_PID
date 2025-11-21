@@ -1,0 +1,81 @@
+ETAP 1: Sprawdzenie, jak falownik jest zaprogramowany
+Chcemy potwierdzić, że falownik faktycznie ma rozkaz: "Jak dostaniesz sygnał na Pin 4, to olej gałkę i zwolnij".
+
+Podejdź do fioletowego falownika (E3).
+
+Naciśnij i przytrzymaj środkowy przycisk (NAWIGACJA/ENTER) przez około 2 sekundy, aż na ekranie zmieni się napis (zazwyczaj pojawi się P-01).
+
+Użyj strzałek GÓRA / DÓŁ, aby znaleźć parametr P-15.
+
+Naciśnij krótko środkowy przycisk.
+
+CO MA BYĆ: Na ekranie powinna migać cyfra 0.
+
+
+Wyjaśnienie: Ustawienie 0 oznacza, że PIN 4 (czarny kabel) działa jako przełącznik: Gałka vs Prędkość Stała.
+
+Naciśnij krótko środek, żeby wyjść.
+
+Teraz strzałkami znajdź parametr P-20.
+
+Naciśnij krótko środkowy przycisk.
+
+CO MA BYĆ: Tu powinna być wpisana ta "wolna prędkość", np. 10.0 (lub 12.0, 15.0 - cokolwiek, co jest znacznie mniejsze niż normalna praca).
+
+
+Wyjaśnienie: To jest prędkość awaryjna, na którą zrzuca maszynę.
+
+Naciśnij krótko środek, żeby wyjść.
+
+ETAP 2: Test na żywo – podgląd "Strażnika" (NAJWAŻNIEJSZE)
+Teraz sprawdzimy, czy falownik "widzi", kiedy czarne pudełko (strażnik prądu) wysyła sygnał. Falownik ma wbudowany podgląd wejść cyfrowych.
+
+Będąc w menu (np. na P-20), użyj strzałek, aby zjechać w dół do parametru P-00.
+
+Naciśnij krótko środkowy przycisk. Wejdziesz w menu "Tylko do odczytu".
+
+Użyj strzałek, aby znaleźć P00-04 (lub P00 04).
+
+Naciśnij krótko środkowy przycisk.
+
+CO ZOBACZYSZ: Zobaczysz dziwne kreski pionowe lub poziome (status wejść cyfrowych).
+
+Ponieważ masz zmostkowany Pin 1 i 2 (Niebieski mostek), jedna kreska będzie się ciągle świecić (oznacza to sygnał START).
+
+Nas interesuje inna kreska, odpowiadająca za PIN 4 (zazwyczaj trzecia lub czwarta pozycja, zależnie od wersji softu).
+
+TEST: Niech operator obserwuje ten ekran (P00-04) podczas pracy maszyny.
+
+SYTUACJA A (Normalna praca, lekko idzie): Na ekranie świeci się np. tylko jedna kreska (od mostka Start). Maszyna jedzie szybko z gałki.
+
+SYTUACJA B (Zator/Przeciążenie): W momencie, gdy Granulator ma ciężko (ampery skaczą) i podajnik zwalnia – na ekranie falownika w parametrze P00-04 powinna pojawić się (zapalić) DODATKOWA KRESKA.
+
+Jeśli w momencie zwolnienia maszyny na ekranie falownika zapala się dodatkowy segment/kreska – MAMY PEWNOŚĆ 100%. To oznacza, że prąd fizycznie przypłynął czarnym kablem na PIN 4 i wymusił zmianę prędkości.
+
+ETAP 3: Sprawdzenie napięcia sterowania (Opcjonalne)
+Dla pewności sprawdźmy, czy Cobi (Zadajnik) jest dobrze skonfigurowany w falowniku.
+
+Wyjdź z P00-04 (krótko środek).
+
+Znajdź parametr P-16.
+
+Wejdź w niego.
+
+
+CO MA BYĆ: Powinno być U 0-10 (sterowanie napięciowe 0-10V).
+
+Jeśli jest np. 4-20 lub A 0-20, to byłoby źle, ale skoro maszyna działa, to pewnie jest ok.
+
+Jak wrócić do normalnej pracy?
+Po wszystkim naciśnij i przytrzymaj środkowy przycisk przez 2 sekundy, aż wrócisz do głównego ekranu (gdzie widać Stop albo H 0.0).
+
+Podsumowanie dla Ciebie (diagnoza)
+Jeśli w Etapie 1 masz P-15 = 0 oraz P-20 = 10.0 (lub podobnie), a w Etapie 2 przy przeciążeniu pojawia się nowa kreska na wyświetlaczu – system działa dokładnie tak, jak go rozszyfrowaliśmy:
+
+Pin 1 zasila strażnika.
+
+Strażnik przy 35A zamyka obwód.
+
+Prąd wraca na Pin 4.
+
+Falownik widzi sygnał na Pin 4 i przełącza się na P-20 (wolne obroty).
